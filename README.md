@@ -5,4 +5,4 @@ Players roll dice to travel around a circular game board with 25 spaces buying a
 Manual version prompts for a number of players and then manually prompts users for player input on decisions throughout the game. 
 The simulated version automates decision-making and plays out a simulated 30 person game, where players buy property whenever they have the fiscal capacity to do so (random dice rolls for movements being the wildcard variable).
 
-Provided as, is. I am not liable if it does not run correctly on your system or results in other unforseen issues. Thanks for playing!
+Thanks for playing!
