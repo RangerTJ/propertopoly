@@ -184,7 +184,7 @@ class RealEstateGame:
 
         # If the player doesn't exist / is out of the game
         if player_name not in self._player_dict:
-            # print("buy_space: This player doesn't exist - they can join then next game, THEN try to buy this.")
+            print("This player doesn't exist - they can join then next game, THEN try to buy this space.")
             return False
 
         # Temp. Readability Variables
@@ -197,12 +197,12 @@ class RealEstateGame:
 
         # If the player tries to buy "Go"
         if current_rent == 0:
-            # print("buy_space: Can't buy 'Go', silly!")
+            print("You can't buy 'Go', silly!")
             return False                            # Caused by being silly and trying to buy "Go"
 
         # If the property is already owned by someone else
         if current_rent != 0 and current_loc_owner is not None:
-            # print("buy_space: Can't buy someone else's property either!")
+            print("You can't buy someone else's property!")
             return False                            # Caused by trying to by owned land
 
         # If the player has an account balance greater than the purchase price
@@ -213,7 +213,7 @@ class RealEstateGame:
             player.update_holdings(current_loc)     # Location added to player inventory
             current_loc.update_owner(player)        # Player assigned to property as its owner
             return True
-        # print("buy_space: No dough, no show.")
+        # print("No dough, no show. Come back when you've got more cash!")
         return False                                # Caused by insufficient funds
 
     def move_player(self, player_name, spaces_moved):
@@ -273,7 +273,7 @@ class RealEstateGame:
         if player.get_loc().get_owner() is None:
             if player.get_loc().get_rent() == 0:
                 return  # No paying rent on "Go"!
-            return  # this is where a buy prompt would happen in an automated game loop - may expand later
+            return
 
         # If you made it this far down the loop, then you HAVE to pay somebody something
         rent_due = player.get_loc().get_rent()
@@ -289,7 +289,8 @@ class RealEstateGame:
         land_lord.update_cash(player.get_cash())            # Gets all the $$$
         player.update_cash((-1 * player.get_cash()))        # Loses all the $$$ (may not be needed due to deleting them)
         player.loser()                                      # Clears all their holdings and their name from all holdings
-        # print(player_name, "has been defeated. They have been removed from the game and all their properties freed.")
+        print("Whelp. Sucks to be you!")
+        print(player_name, "has been defeated. They have been removed from the game and all their properties freed.")
         del self._player_dict[player_name]                  # Player deleted from player list
         return
 
@@ -311,10 +312,9 @@ class RealEstateGame:
         if len(self._player_dict) > 1:                          # If more than 1 player is left, game on!
             return ""
 
-        for player in self._player_dict:                        # Triggers once there is one player or less left
-            self._game_over = True                              # For use in game loop; flag to end the loop
-            # print("Winner!")
-            return self._player_dict[player].get_name()         # Declare the name of the person left: The Winner!
+        for player in self._player_dict:                            # Triggers once there is one player or less left
+            self._game_over = True                                  # For use in game loop; flag to end the loop
+            return self._player_dict[player].get_name() + " wins!"  # Declare the name of the person left: The Winner!
 
     def delete_player(self, player_name):
         """
@@ -651,18 +651,34 @@ def setup_game(player_count):
     Player number (for turn order) is assigned in the order the player is created. Early bird gets the worm!
     """
 
+    # Welcome message
+    print("Welcome to Propertopoly! The game that is *definitely* not monopoly in any legal sense.\n"
+          "\nTo play, first input a number of players (2-30) and hit enter. For each player, enter a name\n"
+          "when prompted and hit enter. Once the game has started, you control your response to gameplay prompts by\n"
+          "typing either 'y' for 'yes' or 'n' for 'no' when prompted. After making your choice, just hit 'enter' to\n"
+          "confirm it! Turn order is determined based on the order that players are created.\n"
+          "\nEach turn, you can choose whether you would like to roll a 6-sided dice and keep playing, or quit.\n"
+          "If you accidentally select 'yes' to quit when you don't mean to, there is an additional confirmation\n"
+          "dialogue\ as a built-in failsafe. Every time you land on a property, if it is un-owned, you are given\n"
+          "the option to purchase it. No buying on credit though - it won't work if you can't afford it! If the\n"
+          "property is owned by someone else, then you pay them the rent value of the property instead, which is\n"
+          "1/5 of its original purchase price.\n"
+          "\nBy default, all players start the game with $1000 and own no properties.\n"
+          "Each time a player passes or lands on the 'Go' space, they earn a default amount of $50.\n")
+
     # Creates the default game board
     default_game = RealEstateGame()
     print("Creating the Game Board...")
     default_rents = [50, 50, 50, 75, 75, 75, 100, 100, 100, 150, 150, 150, 200, 200, 200, 250, 250, 250, 300, 300,
                      300, 350, 350, 350]
     default_game.create_spaces(50, default_rents)
+    # Note for future: May want to consider algorithm to increase go funds in games with fewer players
 
     # Creates the players
     for num in range(1, player_count + 1):
-        name = input("Please enter the player's name: ")
-        player_name = name + " - (Player " + str(num) + ")"
-        print("\nCreating", player_name)
+        name = input("Player " + str(num) + " - Please enter your name: ")
+        player_name = name + " (Player " + str(num) + ")"
+        print("Creating:", player_name, "\n")
         default_game.create_player(player_name, 1000)
     return default_game
 
