@@ -44,10 +44,17 @@ class RealEstateGame:
         # Core data members required for both manual gameplay and game loop automation
         self._player_dict = {}                            # Keyed to name: Player Objects
         self._location_dict = {0: Property("Go", 0, 0)}   # Keyed to board position integer: Property Objects
-        self._place_names = ["Go", "Place 1", "Place 2", "Place 3", "Place 4", "Place 5", "Place 6", "Place 7",
-                             "Place 8", "Place 9", "Place 10", "Place 11", "Place 12", "Place 13", "Place 14",
-                             "Place 15", "Place 16", "Place 17", "Place 18", "Place 19", "Place 20", "Place 21",
-                             "Place 22", "Place 23", "Place 24"]
+        self._place_names = ["Go", "Pile of Dirt", "Carved 'X' on a Piece of Driftwood", "Patch of Grass",
+                             "Toll Booth in the Middle of the Desert", "Grassy Gnoll", "A Sassy Troll",
+                             "Singed Thatched-Roof Cottage", "Desert Island", "Dessert Island", "IOU For a House",
+                             "Large Pile of Pogs", "Run-Down Hog Farm", "Italian Restaurant Front", "A Denny's",
+                             "Kuzcotopia", "Water Slide", "Normal Mid-Range House", "Disneyland", "Jurassic World",
+                             "Buckingham Palace", "Istana Nurul Iman Palace", "International Space Station",
+                             "The Moon", "San Diego Studio Apartment"]
+        self._places_default = ["Go", "Place 1", "Place 2", "Place 3", "Place 4", "Place 5", "Place 6", "Place 7",
+                                "Place 8", "Place 9", "Place 10", "Place 11", "Place 12", "Place 13", "Place 14",
+                                "Place 15", "Place 16", "Place 17", "Place 18", "Place 19", "Place 20", "Place 21",
+                                "Place 22", "Place 23", "Place 24"]
         self._go_cash = None                                    # Cash collected for passing "Go"
         self._player_count = 0                                  # Counts players added to game
         self._rent_list = []                                    # Used for reference; determined by create_spaces()
@@ -114,7 +121,7 @@ class RealEstateGame:
         """
         # Cancel operation without doing anything if the player already exists
         if player_name in self._player_dict:
-            # print("create_player: They already exist!")
+            print("This player already exists! Try a new name!")
             return
 
         # Checks to make sure the starting cash is legitimate; if they can't buy anything the game might never end.
@@ -637,7 +644,7 @@ class Property:
         self._owner = owner
 
 
-def setup_default_game(player_count):
+def setup_game(player_count):
     """
     Quickly sets up a game based on the parameter player count, using default amounts for rent and starting cash.
     Players names are assigned as Player 1, Player 2, etc. in order as they are created.
@@ -653,8 +660,9 @@ def setup_default_game(player_count):
 
     # Creates the players
     for num in range(1, player_count + 1):
-        player_name = "Player " + str(num)
-        print("Creating", player_name)
+        name = input("Please enter the player's name: ")
+        player_name = name + " - (Player " + str(num) + ")"
+        print("\nCreating", player_name)
         default_game.create_player(player_name, 1000)
     return default_game
 
@@ -662,7 +670,7 @@ def setup_default_game(player_count):
 # Try The Game Loop Here! Use manual=False to watch the game play itself, or use manual=True to play it for real!
 player_input = input("Please enter the number of players...\n")
 if player_input.isnumeric() and 0 < int(player_input) < 31:
-    game = setup_default_game(int(player_input))
+    game = setup_game(int(player_input))
     game.start_game(manual=True)
 else:
     print("Please close and restart the application.\n"

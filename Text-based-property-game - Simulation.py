@@ -44,10 +44,17 @@ class RealEstateGame:
         # Core data members required for both manual gameplay and game loop automation
         self._player_dict = {}                            # Keyed to name: Player Objects
         self._location_dict = {0: Property("Go", 0, 0)}   # Keyed to board position integer: Property Objects
-        self._place_names = ["Go", "Place 1", "Place 2", "Place 3", "Place 4", "Place 5", "Place 6", "Place 7",
-                             "Place 8", "Place 9", "Place 10", "Place 11", "Place 12", "Place 13", "Place 14",
-                             "Place 15", "Place 16", "Place 17", "Place 18", "Place 19", "Place 20", "Place 21",
-                             "Place 22", "Place 23", "Place 24"]
+        self._place_names = ["Go", "Pile of Dirt", "Carved 'X' on a Piece of Driftwood", "Patch of Grass",
+                             "Toll Booth in the Middle of the Desert", "Grassy Gnoll", "A Sassy Troll",
+                             "Singed Thatched-Roof Cottage", "Desert Island", "Dessert Island", "IOU For a House",
+                             "Large Pile of Pogs", "Run-Down Hog Farm", "Italian Restaurant Front", "A Denny's",
+                             "Kuzcotopia", "Water Slide", "Normal Mid-Range House", "Disneyland", "Jurassic World",
+                             "Buckingham Palace", "Istana Nurul Iman Palace", "International Space Station",
+                             "The Moon", "San Diego Studio Apartment"]
+        self._places_default = ["Go", "Place 1", "Place 2", "Place 3", "Place 4", "Place 5", "Place 6", "Place 7",
+                                "Place 8", "Place 9", "Place 10", "Place 11", "Place 12", "Place 13", "Place 14",
+                                "Place 15", "Place 16", "Place 17", "Place 18", "Place 19", "Place 20", "Place 21",
+                                "Place 22", "Place 23", "Place 24"]
         self._go_cash = None                                    # Cash collected for passing "Go"
         self._player_count = 0                                  # Counts players added to game
         self._rent_list = []                                    # Used for reference; determined by create_spaces()
