@@ -5,4 +5,6 @@ Players roll dice to travel around a circular game board with 25 spaces buying a
 The manually-played version is the "real" game and prompts for a number of players and player names. It then manually prompts users for player input on decisions throughout the game. Turn order is based on the order that player names are entered. 
 The simulated version is fully automated and simulates a 30 person game. It assumes that players buy property whenever they have the fiscal capacity to do so (random dice rolls for movements being the wildcard variable in the simulation). In the "real" game, players can strategically choose whether or not that would like to purchase a given property.
 
+Requires random and matplotlib Python modules to be installed.
+
 Thanks for playing!
