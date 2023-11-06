@@ -1,4 +1,4 @@
-# Author: Raptor2k1
+# Author: RangerTJ
 # Date: 8/6/2022
 # Description:  Allows the user to manually play through a property-based board game, similar to Monopoly.
 #               Players travel around a circular game board with 25 spaces buying and renting property until there is
