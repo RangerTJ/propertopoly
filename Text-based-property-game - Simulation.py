@@ -1,4 +1,4 @@
-# Author: Raptor2k1
+# Author: RangerTJ
 # Date: 6/3/2022
 # Description:  Simulates a 30-person property trading boardgame that plays similar to Monopoly.
 #               Players travel around a circular game board with 25 spaces buying and renting property until there is
